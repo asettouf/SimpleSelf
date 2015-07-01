@@ -1,3 +1,4 @@
+//Change the HTML value of the status div
 var statusChangeCallback = function(resp){
   console.log("statusChangeCallback");
   console.log(resp);
@@ -10,6 +11,7 @@ var statusChangeCallback = function(resp){
   }
 }
 
+//check the state using FB SDK
 var checkLoginState = function(){
   FB.getLoginStatus(function(response) {
       statusChangeCallback(response);
@@ -36,7 +38,7 @@ window.fbAsyncInit = function() {
    fjs.parentNode.insertBefore(js, fjs);
  }(document, 'script', 'facebook-jssdk'));
 
-
+//Test a simple request to the API
 function testAPI() {
   console.log('Welcome!  Fetching your information.... ');
   FB.api('/me', function(response) {
