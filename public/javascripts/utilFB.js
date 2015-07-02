@@ -1,12 +1,8 @@
+var call = "/me";
 //Change the HTML value of the status div
 var statusChangeCallback = function(resp){
   console.log("statusChangeCallback");
-  console.log(resp);
-  var call = "";
-  $("#btnapiCall").on('click', function(ev){
-    ev.preventDefault();
-    call = $("#apiCall").val();
-  });
+  
   if (resp.status == 'connected'){
     testAPI(call);
   } else if(resp.status == 'unauthorized'){
@@ -49,7 +45,7 @@ var testAPI = function(callApi) {
   console.log('Welcome!  Fetching your information.... ');
   realCall = (callApi == "" ? "/me": callApi);
   FB.api(realCall, function(response) {
-    console.log(realCall);
+    console.log(response);
     $("#status").html(response.name);
   });
 }
@@ -57,3 +53,13 @@ var testAPI = function(callApi) {
 var captureFBCall = function() {
 
 }
+
+$(document).ready(function(){
+  $("#btnapiCall").on('click', function(ev){
+    ev.preventDefault();
+    call = $("#apiCall").val();
+    FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+  });
+})
