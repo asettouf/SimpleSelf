@@ -2,8 +2,13 @@
 var statusChangeCallback = function(resp){
   console.log("statusChangeCallback");
   console.log(resp);
+  var call = "";
+  $("#btnapiCall").on('click', function(ev){
+    ev.preventDefault();
+    call = $("#apiCall").val();
+  });
   if (resp.status == 'connected'){
-    testAPI();
+    testAPI(call);
   } else if(resp.status == 'unauthorized'){
     $("#status").html("Please log in this app");
   }else {
@@ -30,6 +35,7 @@ window.fbAsyncInit = function() {
   });
 };
 
+//init script provided by Facebook
 (function(d, s, id){
    var js, fjs = d.getElementsByTagName(s)[0];
    if (d.getElementById(id)) {return;}
@@ -39,13 +45,15 @@ window.fbAsyncInit = function() {
  }(document, 'script', 'facebook-jssdk'));
 
 //Test a simple request to the API
-function testAPI() {
+var testAPI = function(callApi) {
   console.log('Welcome!  Fetching your information.... ');
-  FB.api('/me', function(response) {
-    console.log('Successful login for: ' + response.name);
-    document.getElementById('status').innerHTML =
-      'Thanks for logging in, ' + response.name + '!';
+  realCall = (callApi == "" ? "/me": callApi);
+  FB.api(realCall, function(response) {
+    console.log(realCall);
+    $("#status").html(response.name);
   });
 }
 
+var captureFBCall = function() {
 
+}
