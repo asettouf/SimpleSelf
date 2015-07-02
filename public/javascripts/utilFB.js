@@ -58,6 +58,7 @@ $(document).ready(function(){
   $("#btnapiCall").on('click', function(ev){
     ev.preventDefault();
     call = $("#apiCall").val();
+    $("#call").html(call);
     FB.getLoginStatus(function(response) {
     statusChangeCallback(response);
   });
