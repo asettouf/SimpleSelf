@@ -1,4 +1,5 @@
 var call = "/me";
+var nextLink ="";
 //Change the HTML value of the status div
 var statusChangeCallback = function(resp){
   console.log("statusChangeCallback");
@@ -46,21 +47,41 @@ var testAPI = function(callApi) {
   realCall = (callApi == "" ? "/me": callApi);
   FB.api(realCall, function(response) {
     console.log(response);
-    $("#status").html(response.name);
+    $("#status").html(response.id);
+    if(response.paging){
+      if (response.paging.next){
+        $("#nextCall").show();
+        nextLink = response.paging.next;
+      }
+    } else {
+      $("#nextCall").hide();
+    }
   });
 }
 
-var captureFBCall = function() {
+//call Next object with API
+var callNextPage = function(ev){
+  console.log("going to next page");
+  ev.preventDefault();
+  var fullURL = nextLink;
+  var tmpCall = fullURL.split(".com/");
+  call = tmpCall[tmpCall.length - 1];
+  testAPI(call);
+}
 
+//call the API with given query
+var callAPI = function(ev){
+  ev.preventDefault();
+  call = $("#apiCall").val();
+  $("#call").html("Call to FB API: " + call);
+  FB.getLoginStatus(function(response) {
+  statusChangeCallback(response);
+  });
 }
 
 $(document).ready(function(){
-  $("#btnapiCall").on('click', function(ev){
-    ev.preventDefault();
-    call = $("#apiCall").val();
-    $("#call").html(call);
-    FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
-  });
+  $("#nextCall").hide();
+  
+  $("#btnapiCall").on('click', callAPI);
+  $("#nextCall").on('click', callNextPage);
 })
