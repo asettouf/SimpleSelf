@@ -2,19 +2,21 @@ extends layout
 
 block content
 	div(id="fb-root")
-	h1= title
-	p(id="Name") Welcome to #{title}
+	h1 #{title}
+	p(id="Name" class="lead") Welcome to #{title}
 	br
 	<fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
 	br
 	br
 	fieldset
-		input#apiCall(type='text', placeholder='apiCall')
-		button#btnapiCall Call the API
+		div#apiCallWrapper
+			input#apiCall(type='text', placeholder='apiCall')
+			button(id="btnapiCall" class="btn btn-primary") Call the API
 	br
-	button#nextCall
+	button(id="prevCall" class="btn btn-default text-center") Previous
+	button(id="nextCall" class="btn btn-default text-center") Next
 
 	br
 	br
 	div(id='status')
-	div(id="call")
+	div(id="call") /me
