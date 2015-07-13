@@ -2,17 +2,18 @@ extends layout
 
 block content
 	div(id="fb-root")
-	h1 #{title}
-	p(id="Name" class="lead") Welcome to #{title}
-	br
-	<fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
-	br
-	br
-	div(ng-app="")
-		fieldset
-			div#apiCallWrapper
-				input#apiCall(type='text', placeholder='apiCall', ng-model="name")
-				button(id="btnapiCall" class="btn btn-primary") Call the API
+	div(ng-app="", class="col-lg-2")
+		h1 #{title}
+		p(id="Name" class="lead") Welcome to #{title}
+		br
+		<fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+		br
+		br
+	
+		div#apiCallWrapper(class="input-group")
+			input#apiCall(type='text', class="form-control", placeholder='Api Call...', ng-model="name")
+			span(class="input-group-btn")
+				button(id="btnapiCall" class="btn btn-primary") Call!
 		br
 		button(id="prevCall" class="btn btn-default text-center") Previous
 		button(id="nextCall" class="btn btn-default text-center") Next
