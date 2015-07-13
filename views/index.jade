@@ -8,15 +8,16 @@ block content
 	<fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
 	br
 	br
-	fieldset
-		div#apiCallWrapper
-			input#apiCall(type='text', placeholder='apiCall')
-			button(id="btnapiCall" class="btn btn-primary") Call the API
-	br
-	button(id="prevCall" class="btn btn-default text-center") Previous
-	button(id="nextCall" class="btn btn-default text-center") Next
+	div(ng-app="")
+		fieldset
+			div#apiCallWrapper
+				input#apiCall(type='text', placeholder='apiCall', ng-model="name")
+				button(id="btnapiCall" class="btn btn-primary") Call the API
+		br
+		button(id="prevCall" class="btn btn-default text-center") Previous
+		button(id="nextCall" class="btn btn-default text-center") Next
 
-	br
-	br
-	div(id='status')
-	div(id="call") /me
+		br
+		br
+		div(id='status')
+		p(ng-bind="name")
